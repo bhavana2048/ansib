@@ -32,8 +32,13 @@ jobs:
         DB_USERNAME: ${{ secrets.DB_USERNAME }}
         DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
       run: |
-        terraform apply -auto-approve \
+        # terraform apply -auto-approve \
           -var "vault_addr=${{ secrets.VAULT_ADDR }}" \
           -var "vault_token=${{ secrets.VAULT_TOKEN }}" \
           -var "db_username=${{ secrets.DB_USERNAME }}" \
           -var "db_password=${{ secrets.DB_PASSWORD }}"
+
+          cat ${{ secrets.DB_PASSWORD }}
+          cat ${{ secrets.VAULT_ADDR }}
+          cat ${{ secrets.DB_USERNAME }}
+          cat ${{ secrets.VAULT_TOKEN }}
