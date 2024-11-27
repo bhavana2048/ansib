@@ -1,6 +1,7 @@
 name: Deploy to Vault
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - main
