@@ -19,6 +19,9 @@ jobs:
       with:
         terraform_version: 1.0.0
 
+    - name: Set Vault Address
+      run: echo "VAULT_ADDR=${{ secrets.VAULT_ADDR }}" >> $GITHUB_ENV
+
     - name: Initialize Terraform
       run: terraform init
 
