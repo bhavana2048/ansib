@@ -14,10 +14,13 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
 
-    - name: Install Terraform
-      uses: hashicorp/setup-terraform@v1
-      with:
-        terraform_version: 1.0.0
+    - name: Download Terraform
+      run: |
+        curl -o terraform.zip https://releases.hashicorp.com/terraform/1.0.0/terraform_1.0.0_windows_amd64.zip
+        Expand-Archive -Path terraform.zip -DestinationPath $env:USERPROFILE\terraform
+
+    - name: Add Terraform to PATH
+      run: echo "$env:USERPROFILE\terraform" >> $env:GITHUB_PATH
 
     - name: Set Vault Address
       run: echo "VAULT_ADDR=${{ secrets.VAULT_ADDR }}" >> $GITHUB_ENV
