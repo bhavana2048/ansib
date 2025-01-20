@@ -1,33 +1,76 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: app-slack-notification
   annotations:
     argocd.argoproj.io/hook: PostSync
-    argocd.argoproj.io/hook-delete-policy: HookFailed
+    argocd.argoproj.io/hook-delete-policy: HookSucceeded
+    argocd.argoproj.io/sync-wave: "1"
+  labels:
+    app.kubernetes.io/instance: guestbook
+  name: app-slack-notification
+  namespace: default
 spec:
+  backoffLimit: 2
   template:
     metadata:
       labels:
         app: app-slack-notification
     spec:
       containers:
-      - name: slack-notification
-        image: curlimages/curl
-        env:
-        - name: GITHUB_TOKEN
-          valueFrom:
-            secretKeyRef:
-              name: github-token-secret
-              key: token
-        command:
-          - "sh"
-          - "-c"
-          - |
-            curl -v -X POST \
-              -H "Accept: application/vnd.github.v3+json" \
-              -H "Authorization: token $GITHUB_TOKEN" \
-              https://api.github.com/repos/bhavana2048/ansib/actions/workflows/test.yaml/dispatches \
-              -d '{"ref":"main"}'
+        - name: slack-notification
+          image: curlimages/curl
+          command:
+            - sh
+            - '-c'
+            - |
+              curl -v -X POST \
+                -H "Accept: application/vnd.github.v3+json" \
+                -H "Authorization: token $GITHUB_TOKEN" \
+                https://api.github.com/repos/bhavana2048/ansib/actions/workflows/test.yaml/dispatches \
+                -d '{"ref":"main"}'
+          env:
+            - name: GITHUB_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: github-token-secret
+                  key: token
       restartPolicy: Never
-  backoffLimit: 2
+
+
+
+
+
+-----------------------------------
+# apiVersion: batch/v1
+# kind: Job
+# metadata:
+#   name: app-slack-notification
+#   annotations:
+#     argocd.argoproj.io/hook: PostSync
+#     argocd.argoproj.io/hook-delete-policy: HookFailed
+# spec:
+#   template:
+#     metadata:
+#       labels:
+#         app: app-slack-notification
+#     spec:
+#       containers:
+#       - name: slack-notification
+#         image: curlimages/curl
+#         env:
+#         - name: GITHUB_TOKEN
+#           valueFrom:
+#             secretKeyRef:
+#               name: github-token-secret
+#               key: token
+#         command:
+#           - "sh"
+#           - "-c"
+#           - |
+#             curl -v -X POST \
+#               -H "Accept: application/vnd.github.v3+json" \
+#               -H "Authorization: token $GITHUB_TOKEN" \
+#               https://api.github.com/repos/bhavana2048/ansib/actions/workflows/test.yaml/dispatches \
+#               -d '{"ref":"main"}'
+#       restartPolicy: Never
+#   backoffLimit: 2
