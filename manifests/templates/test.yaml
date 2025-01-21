@@ -1,7 +1,7 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: app-slack-notification
+  name: post-sync-notification
   annotations:
     argocd.argoproj.io/hook: PostSync
     argocd.argoproj.io/hook-delete-policy: HookSucceeded
@@ -10,7 +10,7 @@ spec:
   template:
     metadata:
       labels:
-        app: app-slack-notification
+        app: post-sync-notification
     spec:
       containers:
       - name: slack-notification
