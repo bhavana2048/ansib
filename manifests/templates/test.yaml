@@ -29,6 +29,6 @@ spec:
               -H "Accept: application/vnd.github.v3+json" \
               -H "Authorization: token $GITHUB_TOKEN" \
               https://api.github.com/repos/bhavana2048/ansib/actions/workflows/test.yaml/dispatches \
-              -d '{"ref":"main"}'
+              -d '{"ref":"main", "inputs": {"application_name": "700000"}}'
       restartPolicy: Never
   backoffLimit: 2
