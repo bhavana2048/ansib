@@ -1,0 +1,19 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: presync-delay
+  annotations:
+    argocd.argoproj.io/hook: Sync
+    argocd.argoproj.io/hook-delete-policy: HookSucceeded
+    argocd.argoproj.io/sync-wave: "0"
+spec:
+  template:
+    metadata:
+      labels:
+        app: presync-delay
+    spec:
+      containers:
+        - name: delay
+          image: busybox
+          command: ["sh", "-c", "sleep 180"]
+      restartPolicy: Never
