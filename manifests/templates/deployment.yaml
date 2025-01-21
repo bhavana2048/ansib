@@ -36,6 +36,8 @@ spec:
             httpGet:
               path: /
               port: http
+            initialDelaySeconds: 300 # 5 minutes delay
+            periodSeconds: 10
           resources:
 {{ toYaml .Values.resources | indent 12 }}
     {{- with .Values.nodeSelector }}
