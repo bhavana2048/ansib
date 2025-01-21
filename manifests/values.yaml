@@ -45,3 +45,6 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
+
+preSync:
+  enabled: true
