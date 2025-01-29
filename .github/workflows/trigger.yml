@@ -20,7 +20,6 @@ jobs:
             "Authorization" = "Bearer ${{ secrets.G_TOKEN }}"
         }
         $body = @{
-            "ref" = "CICD_Execution"
             "inputs" = @{
                 "testType" = "smoke"
                 "thread" = "3"
