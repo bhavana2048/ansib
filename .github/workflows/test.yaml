@@ -10,11 +10,64 @@ on:
 
 jobs:
   deploy:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
 
     steps:
     - name: Checkout repository
       uses: actions/checkout@v2
 
     - name: test
-      run: echo "${{ github.event.inputs.application_name }} store id smoke test successful"
+      run: |
+        echo "${{ github.event.inputs.application_name }} store id smoke test successful"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# name: Test Job
+
+# on:
+#   workflow_dispatch:
+#     inputs:
+#       application_name:
+#         description: 'Name of the application'
+#         required: true
+#         default: "xxx"
+
+# jobs:
+#   deploy:
+#     runs-on: ubuntu-latest
+
+#     steps:
+#     - name: Checkout repository
+#       uses: actions/checkout@v2
+
+#     - name: test
+#       run: echo "${{ github.event.inputs.application_name }} store id smoke test successful"
