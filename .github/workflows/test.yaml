@@ -7,6 +7,18 @@ on:
         description: 'Name of the application'
         required: true
         default: "xxx"
+      testType:
+        description: 'Type of the test'
+        required: true
+        default: "smoke"
+      thread:
+        description: 'Number of threads'
+        required: true
+        default: "3"
+      customTag:
+        description: 'Custom tag for the test'
+        required: true
+        default: "@smokeV2"
 
 jobs:
   deploy:
@@ -18,8 +30,10 @@ jobs:
 
     - name: test
       run: |
-        echo "${{ github.event.inputs.application_name }} store id smoke test successful"
-
+        echo "Application Name: ${{ github.event.inputs.application_name }}"
+        echo "Test Type: ${{ github.event.inputs.testType }}"
+        echo "Thread: ${{ github.event.inputs.thread }}"
+        echo "Custom Tag: ${{ github.event.inputs.customTag }}"
 
 
 
