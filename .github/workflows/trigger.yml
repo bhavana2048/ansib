@@ -1,0 +1,25 @@
+name: Trigger Job
+
+on:
+  workflow_dispatch:
+    inputs:
+      application_name:
+        description: 'Name of the application'
+        required: true
+        default: "xxx"
+
+jobs:
+  trigger:
+    runs-on: windows-latest
+
+    steps:
+    - name: Trigger test.yaml
+      run: |
+        $token = "${{ secrets.G_TOKEN }}"
+        $body = @{
+          "ref" = "main"
+          "inputs" = @{
+            "application_name" = "${{ github.event.inputs.application_name }}"
+          }
+        } | ConvertTo-Json
+        Invoke-RestMethod -Uri "https://api.github.com/repos/${{ github.repository }}/actions/workflows/test.yaml/dispatches" -Method Post -Headers @{Authorization = "Bearer $token"} -Body $body
