@@ -16,7 +16,3 @@ spec:
     server: https://kubernetes.default.svc
     namespace: default  # Namespace where the application resources are deployed
   syncPolicy: {}
-
-
-
-  ##
